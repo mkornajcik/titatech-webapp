@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="light-grey">
+<h2 class="text-center">Top Categories</h2>
+<div class="container grey">
+    <div class="row mt-1">
+        <div class="col-md-3">
+            <h3>Mice</h3>
+            <a href="{{ url_for('show_category', category_id=9) }}" class="">
+                <div class="gallery">
+                    <img src="{{ url_for('static', filename='images/mouse1.png') }}" class="" alt="Mouse Image">
+                    <img src="{{ url_for('static', filename='images/mouse2.png') }}" class="" alt="Mouse Image">
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <h3>Keyboards</h3>
+            <a href="{{ url_for('show_category', category_id=9) }}" class="">
+                <div class="gallery">
+                    <img src="{{ url_for('static', filename='images/keyboard1.png') }}" class="" alt="Keyboard Image">
+                    <img src="{{ url_for('static', filename='images/keyboard2.png') }}" class="" alt="Keyboard Image">
+                </div>
+            </a>
+            <a href="#products" class="btn btn-primary mt-2 light-blue-button">View All Categories ↓</a>
+        </div>
+
+        <div class="col-md-3">
+            <h3>Monitors</h3>
+            <a href="{{ url_for('show_category', category_id=10) }}">
+                <div class="gallery">
+                    <img src="{{ url_for('static', filename='images/monitor1.png') }}" class="" alt="Monitor Image">
+                    <img src="{{ url_for('static', filename='images/monitor2.png') }}" class="" alt="Monitor Image">
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class="container marketing" id="brands">
+    <h2 class="fw-normal">Every world leading tech brand available!</h2>
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        <div class="col-lg-4 ctg hidden">
+            <img src="{{ url_for('static', filename='images/intel.png') }}" class="img-fluid category-img " alt="Intel image">
+            <h2 class="fw-normal">Intel</h2>
+            <p>Intel is a leading global technology company known for designing and manufacturing advanced semiconductor chips.
+                It specializes in developing processors and integrated circuits for computers, servers, and other electronic devices,
+                driving innovation in computing and data processing.</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 ctg hidden">
+            <img src="{{ url_for('static', filename='images/amd.png') }}" class="img-fluid category-img" alt="AMD image">
+            <h2 class="fw-normal">AMD</h2>
+            <p>AMD (Advanced Micro Devices) is a renowned semiconductor company that produces high-performance computing and
+                graphics solutions. It designs CPUs, GPUs, and related technologies for desktops, laptops, and gaming consoles,
+                offering competitive alternatives to Intel and NVIDIA.</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 ctg hidden">
+            <img src="{{ url_for('static', filename='images/nvidia.png') }}" class="img-fluid category-img" alt="NVIDIA image">
+            <h2 class="fw-normal">NVIDIA</h2>
+            <p>NVIDIA is a prominent technology company recognized for its groundbreaking graphics processing units (GPUs).
+                It leads the market in visual computing, artificial intelligence, and deep learning technologies, providing
+                powerful graphics solutions for gaming, professional visualization, and data centers.</p>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+<!-- START THE FEATURETTES -->
+<hr class="featurette-divider">
+
+<div class="row featurette hidden">
+    <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">Cutting-Edge Performance. <span class="text-body-secondary">It’ll blow your mind.</span></h2>
+        <p class="lead">Experience the future of gaming and computing with our top-of-the-line processors. Whether you're gaming, streaming, or designing, our CPUs deliver unparalleled performance that keeps you ahead of the curve. Unlock new levels of speed and efficiency with the latest technology in every chip.</p>
+    </div>
+    <div class="col-md-5">
+        <img src="{{ url_for('static', filename='images/feature1.png') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image mx-auto" alt="High-performance CPU" width="500" height="500">
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette hidden">
+    <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading fw-normal lh-1">Visuals Like Never Before. <span class="text-body-secondary">See for yourself.</span></h2>
+        <p class="lead">Immerse yourself in stunning graphics with our powerful GPUs. Designed for the ultimate gaming experience, our graphics cards provide breathtaking visuals and smooth gameplay. From high-end gaming to professional graphic design, our GPUs offer the power and reliability you need.</p>
+    </div>
+    <div class="col-md-5 order-md-1">
+        <img src="{{ url_for('static', filename='images/feature2.jpg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image mx-auto" alt="Powerful GPU" width="500" height="500">
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette hidden">
+    <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">Unmatched Gaming Gear. <span class="text-body-secondary">Checkmate.</span></h2>
+        <p class="lead">Equip yourself with the best gaming peripherals on the market. From mechanical keyboards with customizable RGB lighting to ultra-responsive gaming mice and high-fidelity headsets, we have everything you need to complete your gaming setup. Dominate the competition with gear that offers precision and comfort.</p>
+    </div>
+    <div class="col-md-5">
+        <img src="{{ url_for('static', filename='images/feature3.jpg') }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image mx-auto" alt="Gaming peripherals" width="500" height="500">
+    </div>
+</div>
+
+<hr class="featurette-divider">
+<!-- /END THE FEATURETTES -->
+</div>
+
+<div class="light-grey">
+<h2 class="text-center">Recommended products</h2>
+<div class="product-showcase">
+    {% for i in range(0, 12, 4) %}
+    <div class="cards-container {% if loop.index0 == 0 %}active{% endif %}" id="container-{{ loop.index0 }}">
+        {% for product in products[i:i+4] %}
+        <div class="recommended-card d-flex flex-column white raise-product">
+            <h4 class="wrap-text">{{ product.name }}</h4>
+            <img src="{{ product.image_url }}" class="img-fluid mx-auto d-block align-middle mt-3 mb-4" alt="{{ product.name }}">
+                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post" class="mt-auto center-form-button">
+                    <button type="submit" class="cart">
+                        <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+                        <span>Add to cart</span>
+                        </button>
+                </form>
+                <h6 class="">${{ product.price }}</h6>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="radio-buttons text-center mt-3">
+    {% for i in range(0, 12, 4) %}
+    <input type="radio" name="product-set" id="radio-{{ loop.index0 }}" {% if loop.index0 == 0 %}checked{% endif %} onclick="showContainer({{ loop.index0 }})">
+    <label for="radio-{{ loop.index0 }}"></label>
+    {% endfor %}
+</div>
+</div>
+<hr>
+
+<h2 class="text-center light-grey" id="products">Components</h2>
+<div class="container">
+    <div class="row mt-4 ">
+        <div class="col-md-4 box">
+            <h3>CPUs</h3>
+            <a href="{{ url_for('show_category', category_id=1) }}">
+                <img src="{{ url_for('static', filename='images/cpu.png') }}" class="img-fluid category-img" alt="CPU Image">
+            </a>
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>GPUs</h3>
+            <a href="{{ url_for('show_category', category_id=2) }}">
+                <img src="{{ url_for('static', filename='images/gpu.png') }}" class="img-fluid category-img" alt="GPU Image">
+            </a>
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>RAMs</h3>
+            <a href="{{ url_for('show_category', category_id=3) }}">
+                <img src="{{ url_for('static', filename='images/ram.png') }}" class="img-fluid category-img" alt="RAM Image">
+            </a>
+        </div>
+
+    </div>
+    <div class="row mt-4">
+
+        <div class="col-md-4 box">
+            <h3>Motherboards</h3>
+            <a href="{{ url_for('show_category', category_id=4) }}">
+                <img src="{{ url_for('static', filename='images/motherboard.png') }}" class="img-fluid category-img" alt="Motherboard Image">
+            </a>
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>Computer Cases</h3>
+            <a href="{{ url_for('show_category', category_id=5) }}">
+                <img src="{{ url_for('static', filename='images/case.png') }}" class="img-fluid category-img" alt="Computer Case Image">
+            </a>
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>Power Supplies</h3>
+            <a href="{{ url_for('show_category', category_id=6) }}">
+                <img src="{{ url_for('static', filename='images/psu.png') }}" class="img-fluid category-img" alt="Power Supply Image">
+            </a>
+        </div>
+
+    </div>
+    <div class="row mt-4 gx-5">
+
+        <div class="col-md-4 box">
+            <h3>Fans and Cooling</h3>
+            <a href="{{ url_for('show_category', category_id=7) }}">
+                <img src="{{ url_for('static', filename='images/fan.png') }}" class="img-fluid category-img" alt="Fan and Cooling Image">
+            </a>
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>SSDs</h3>
+            <a href="{{ url_for('show_category', category_id=8) }}">
+                <img src="{{ url_for('static', filename='images/ssd.png') }}" class="img-fluid category-img" alt="SSD Image">
+            </a>
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>Hard Drives</h3>
+            <a href="{{ url_for('show_category', category_id=12) }}">
+                <img src="{{ url_for('static', filename='images/harddrive.png') }}" class="img-fluid category-img" alt="Hard Drive Image">
+            </a>
+
+        </div>
+
+    </div>
+</div>
+<hr>
+<h2 class="text-center light-grey">Peripherals</h2>
+<div class="container">
+    <div class="row mt-4">
+
+        <div class="col-md-4 box">
+            <h3>Mice & Keyboards</h3>
+            <a href="{{ url_for('show_category', category_id=9) }}">
+                <img src="{{ url_for('static', filename='images/mouse.png') }}" class="img-fluid category-img" alt="Mouse Image">
+            </a>
+
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>Monitors</h3>
+            <a href="{{ url_for('show_category', category_id=10) }}">
+                <img src="{{ url_for('static', filename='images/monitor.png') }}" class="img-fluid category-img" alt="Monitor Image">
+            </a>
+
+        </div>
+
+        <div class="col-md-4 box">
+            <h3>Headsets & Speakers</h3>
+            <a href="{{ url_for('show_category', category_id=11) }}">
+                <img src="{{ url_for('static', filename='images/headset.png') }}" class="img-fluid category-img" alt="Headset Image">
+            </a>
+
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

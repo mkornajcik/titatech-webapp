@@ -1,0 +1,114 @@
+<title>{{ category_name }} - TitanTech</title>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Sorting button for price -->
+    <div class="btn-group mb-3">
+        <button type="button" class="btn btn-secondary" onclick="sortProducts('price')">Sort by Price</button>
+    </div>
+</div>
+<h1 class="text-center">{{ category_name }}</h1>
+<div class="container" id="product-container">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 d-flex flex-column category-border box">
+                <img src="{{ product.image_url }}" class="img-fluid mx-auto d-block align-middle mt-3" alt="{{ product.name }}">
+                <h5 class="wrap-text">{{ product.name }}</h5>
+                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post" class="mt-auto center-form-button">
+                    <button type="submit" class="cart">
+                        <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+                        <span>Add to cart</span>
+                    </button>
+                </form>
+                <h5 class="product-price">${{ product.price }}</h5>
+            </div>
+            {% if loop.index % 3 == 0 %}
+                </div><div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<div>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-4">
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('show_category', category_id=category_id, page=page-1) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('show_category', category_id=category_id, page=p) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+
+            {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('show_category', category_id=category_id, page=page+1) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    // Define initial sorting order
+    var sortOrder = 'asc';
+
+    function sortProducts(criteria) {
+        var container = document.getElementById('product-container');
+        var rows = container.querySelectorAll('.row');
+        var products = [];
+
+        rows.forEach(row => {
+            row.querySelectorAll('.col-md-4').forEach(product => {
+                products.push(product);
+            });
+        });
+
+        var sortedProducts = products.sort(function(a, b) {
+            var aValue = parseFloat(getValue(a, criteria));
+            var bValue = parseFloat(getValue(b, criteria));
+
+            if (sortOrder === 'asc') {
+                return aValue - bValue;
+            } else {
+                return bValue - aValue;
+            }
+        });
+
+        // Toggle sorting order for next click
+        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+
+        // Clear current container
+        container.innerHTML = '';
+
+        // Reinsert sorted products in rows of three
+        var newRow;
+        sortedProducts.forEach((product, index) => {
+            if (index % 3 === 0) {
+                newRow = document.createElement('div');
+                newRow.className = 'row';
+                container.appendChild(newRow);
+            }
+            newRow.appendChild(product);
+        });
+    }
+
+    // Helper function to get value based on criteria
+    function getValue(element, criteria) {
+        if (criteria === 'price') {
+            return element.querySelector('.product-price').textContent.trim().replace('$', '');
+        }
+        return '';
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+<title>Customer Support - TitanTech</title>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Contact Customer Support</h1>
+    <p class="lead">We are here to help you with any questions, concerns, or issues you may have. Please fill out the form below and a member of our support team will get back to you as soon as possible. Be sure to provide as much detail as possible to help us assist you effectively.</p>
+    <ul>
+        <li><strong>Full Name:</strong> Provide your complete name, so we can address you properly.</li>
+        <li><strong>Email Address:</strong> Ensure your email is correct, as we will respond to this email.</li>
+        <li><strong>Subject:</strong> Briefly describe the topic of your inquiry.</li>
+        <li><strong>Message:</strong> Include all relevant details regarding your issue or question.</li>
+    </ul>
+    <p class="text-muted">Our support team is available Monday to Friday, 9 AM to 5 PM. We aim to respond to all inquiries within 24 hours during business days.</p>
+    <form action="{{ url_for('customer_support') }}" method="POST" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <div class="invalid-feedback">
+                Please enter your name.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <div class="invalid-feedback">
+                Please enter a valid email address.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" required>
+            <div class="invalid-feedback">
+                Please enter the subject.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            <div class="invalid-feedback">
+                Please enter your message.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}
